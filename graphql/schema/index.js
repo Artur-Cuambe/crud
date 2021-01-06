@@ -5,13 +5,11 @@ module.exports = buildSchema(`
         nome: String
         email: String
         senha: String
-         
-    
     }
 
     type RootQuery{
         users: [User]
-        findUser(id:ID): User
+        findUser(email:String): User
         login(email:String,senha:String): Boolean
     }
 

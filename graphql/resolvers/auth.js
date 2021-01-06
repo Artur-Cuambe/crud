@@ -14,26 +14,32 @@ mongoose.connect('mongodb://localhost/crud', {
 });
 
 
-async function users() {
-    return await Utilizador.find();
+async function users(data) {
+    return await Utilizador.find(data);
 }
 
 
-function findUser({ email }) {
-    try {
-        return data.find(u => u.email == email);
-    } catch (error) {
-        console.log(error);
-    }
+async function findUser({ email }) {
+    return await Utilizador.findOne({email:email});
 }
 
-function insert({ id, name, email, senha }) {
-    try {
-        data.push({ id, name, email, senha });
-        return data[data.length - 1];
-    } catch (error) {
-        console.log(error);
+async function insert({name, email, senha }) {
+    await sleep(3000);
+
+    function sleep(ms) {
+        return new Promise((resolve) => {
+            setTimeout(resolve, ms);
+        });
     }
+
+  return  await Utilizador.create({name, email, senha}, (err) => {
+        if (err) {
+        return err;
+        }
+        
+    });
+
+    
 }
 
 function deleteUser({ id }) {
